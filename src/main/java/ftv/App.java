@@ -2,7 +2,7 @@ package ftv;
 
 import ftv.items.IEnergyConsumer;
 import ftv.items.IInventoryItem;
-import ftv.items.ItemsFactory;
+import ftv.items.IItemsFactory;
 import ftv.items.Vehicle;
 import ftv.service.IServiceCenter;
 import ftv.service.IStorage;
@@ -12,15 +12,16 @@ import ftv.ui.UICommands;
 import java.util.List;
 
 public class App {
-    private IStorage storage;
-    private IServiceCenter serviceCenter;
-    private IUI ui;
-    private ItemsFactory itemsFactory = new ItemsFactory();
+    private final IStorage storage;
+    private final IServiceCenter serviceCenter;
+    private final IUI ui;
+    private final IItemsFactory itemsFactory;
 
-    public App(IStorage storage, IServiceCenter serviceCenter, IUI ui) {
+    public App(IStorage storage, IServiceCenter serviceCenter, IUI ui, IItemsFactory itemsFactory) {
         this.storage = storage;
         this.serviceCenter = serviceCenter;
         this.ui = ui;
+        this.itemsFactory = itemsFactory;
     }
 
     public void run() {
@@ -51,11 +52,11 @@ public class App {
 
     boolean addInventoryItem(IInventoryItem item) {
         if (storage.getItem(item.getId()) != null) return false;
-        if (!serviceCenter.registerItem(item))
-            return false;
         if (item instanceof Vehicle vehicle && !serviceCenter.checkVehicle(vehicle)) {
             return false;
         }
+        if (!serviceCenter.registerItem(item))
+            return false;
         storage.addItem(item);
         return true;
     }
@@ -76,7 +77,7 @@ public class App {
 
     List<Vehicle> getBeginnerVehicles() {
         return storage.getVehicles().stream()
-                .filter(vehicle -> serviceCenter.beginnerCheck(vehicle))
+                .filter(serviceCenter::beginnerCheck)
                 .toList();
     }
 

@@ -3,7 +3,7 @@ package ftv.items;
 
 import ftv.items.impl.*;
 
-public class ItemsFactory {
+public class ItemsFactory implements IItemsFactory {
     public IInventoryItem createItem(ItemTypes type) {
         return switch (type) {
             case Bicycle -> new Bicycle();

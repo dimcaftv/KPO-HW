@@ -1,5 +1,7 @@
 package ftv;
 
+import ftv.items.IItemsFactory;
+import ftv.items.ItemsFactory;
 import ftv.service.IServiceCenter;
 import ftv.service.IStorage;
 import ftv.service.ServiceCenter;
@@ -12,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 public class Config {
     @Bean
-    App app(IStorage IStorage, IServiceCenter serviceCenter, IUI ui) {
-        return new App(IStorage, serviceCenter, ui);
+    App app(IStorage IStorage, IServiceCenter serviceCenter, IUI ui, IItemsFactory itemsFactory) {
+        return new App(IStorage, serviceCenter, ui, itemsFactory);
     }
 
     @Bean
@@ -29,5 +31,10 @@ public class Config {
     @Bean
     IUI ui() {
         return new ConsoleUI();
+    }
+
+    @Bean
+    IItemsFactory itemsFactory() {
+        return new ItemsFactory();
     }
 }

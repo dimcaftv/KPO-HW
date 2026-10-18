@@ -6,7 +6,7 @@ import ftv.items.Vehicle;
 import java.util.*;
 
 public class Storage implements IStorage {
-    private Map<UUID, IInventoryItem> items;
+    private final Map<UUID, IInventoryItem> items;
 
     public Storage() {
         items = new HashMap<>();
