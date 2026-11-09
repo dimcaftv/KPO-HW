@@ -5,7 +5,9 @@ import java.util.UUID;
 public abstract class InventoryItem implements IInventoryItem {
     protected UUID id;
 
-    public InventoryItem() {}
+    public InventoryItem() {
+    }
+
     public InventoryItem(UUID id) {
         this.id = id;
     }

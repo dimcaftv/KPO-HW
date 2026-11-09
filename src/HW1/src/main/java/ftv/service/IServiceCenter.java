@@ -7,7 +7,10 @@ import java.util.UUID;
 
 public interface IServiceCenter {
     UUID getNewId();
+
     boolean registerItem(IInventoryItem item);
+
     boolean checkVehicle(Vehicle vehicle);
+
     boolean beginnerCheck(Vehicle vehicle);
 }
