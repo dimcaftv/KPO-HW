@@ -5,11 +5,14 @@ import ftv.domain.models.*;
 import ftv.domain.repositories.IEvaluationRepository;
 import ftv.domain.repositories.IRubricatorRepository;
 import ftv.domain.repositories.IStudentRepository;
+import ftv.domain.service.CalculationMode;
 import ftv.domain.service.IExporter;
 import ftv.domain.service.IResultStrategy;
 import ftv.domain.service.ResultCalculator;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class PosFacadeImpl implements IPosFacade {
     private final IStudentRepository studentRepository;
@@ -17,23 +20,32 @@ public class PosFacadeImpl implements IPosFacade {
     private final IEvaluationRepository evaluationRepository;
     private final EvaluationFactory evaluationFactory;
     private final ResultCalculator resultCalculator;
-    private final IResultStrategy resultStrategy;
     private final IExporter exporter;
+    private final Map<CalculationMode, IResultStrategy> strategies = new EnumMap<>(CalculationMode.class);
+    private CalculationMode calculationMode;
 
     public PosFacadeImpl(IStudentRepository studentRepository,
                          IRubricatorRepository rubricatorRepository,
                          IEvaluationRepository evaluationRepository,
                          EvaluationFactory evaluationFactory,
                          ResultCalculator resultCalculator,
-                         IResultStrategy resultStrategy,
+                         List<IResultStrategy> strategies,
+                         CalculationMode defaultMode,
                          IExporter exporter) {
         this.studentRepository = studentRepository;
         this.rubricatorRepository = rubricatorRepository;
         this.evaluationRepository = evaluationRepository;
         this.evaluationFactory = evaluationFactory;
         this.resultCalculator = resultCalculator;
-        this.resultStrategy = resultStrategy;
         this.exporter = exporter;
+
+        for (IResultStrategy strategy : strategies) {
+            if (this.strategies.put(strategy.mode(), strategy) != null) {
+                throw new IllegalArgumentException("Duplicate strategy mode");
+            }
+            ;
+        }
+        setCalculationMode(defaultMode);
     }
 
     @Override
@@ -93,7 +105,25 @@ public class PosFacadeImpl implements IPosFacade {
     public Result getResult(StudentId studentId) {
         Rubricator rubricator = rubricatorRepository.load();
         List<Evaluation> evaluations = evaluationRepository.findByStudent(studentId);
-        return resultCalculator.calculate(studentId, evaluations, rubricator, resultStrategy);
+        return resultCalculator.calculate(studentId, evaluations, rubricator, strategies.get(calculationMode));
+    }
+
+    @Override
+    public void setCalculationMode(CalculationMode mode) {
+        if (!strategies.containsKey(mode)) {
+            throw new IllegalArgumentException("Calculation mode is not available: " + mode);
+        }
+        this.calculationMode = mode;
+    }
+
+    @Override
+    public CalculationMode getCalculationMode() {
+        return calculationMode;
+    }
+
+    @Override
+    public List<CalculationMode> getAvailableCalculationModes() {
+        return List.copyOf(strategies.keySet());
     }
 
     @Override

@@ -7,6 +7,11 @@ import java.util.List;
 
 public class SimpleStrategy implements IResultStrategy {
     @Override
+    public CalculationMode mode() {
+        return CalculationMode.SIMPLE;
+    }
+
+    @Override
     public double calculate(List<Evaluation> evaluations, Rubricator rubricator) {
         double res = 0;
         for (Evaluation evaluation : evaluations) {

@@ -6,5 +6,7 @@ import ftv.domain.models.Rubricator;
 import java.util.List;
 
 public interface IResultStrategy {
+    CalculationMode mode();
+
     double calculate(List<Evaluation> evaluations, Rubricator rubricator);
 }

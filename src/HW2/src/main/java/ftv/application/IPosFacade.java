@@ -1,6 +1,7 @@
 package ftv.application;
 
 import ftv.domain.models.*;
+import ftv.domain.service.CalculationMode;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ public interface IPosFacade {
     List<Evaluation> getEvaluations(StudentId studentId);
 
     Result getResult(StudentId studentId);
+
+    void setCalculationMode(CalculationMode mode);
+
+    CalculationMode getCalculationMode();
+
+    List<CalculationMode> getAvailableCalculationModes();
 
     void exportResults();
 }
