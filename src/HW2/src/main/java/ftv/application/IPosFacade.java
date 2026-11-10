@@ -13,11 +13,15 @@ public interface IPosFacade {
 
     List<Criterion> getCriterions();
 
-    void evaluateStudent(StudentId student_id, CriterionId criterion_id, Integer score);
+    Evaluation evaluateStudent(StudentId studentId, CriterionId criterionId, int score);
 
-    List<Evaluation> getEvaluations(StudentId student_id);
+    void correctEvaluation(EvaluationId evaluationId, int newScore);
 
-    Result getResult(StudentId student_id);
+    void removeEvaluation(EvaluationId evaluationId);
+
+    List<Evaluation> getEvaluations(StudentId studentId);
+
+    Result getResult(StudentId studentId);
 
     void exportResults();
 }

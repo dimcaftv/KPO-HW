@@ -1,20 +1,13 @@
 package ftv.domain.models;
 
-import lombok.Getter;
-
-public class Student {
-    @Getter
-    private final StudentId id;
-
-    public String name;
-
-    public Student(StudentId id, String name) {
-        this.id = id;
-        this.name = name;
+public record Student(StudentId id, String name) {
+    public Student {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Student name must not be blank");
+        }
     }
 
     public Student(String name) {
-        this.id = StudentId.generate();
-        this.name = name;
+        this(StudentId.generate(), name);
     }
 }

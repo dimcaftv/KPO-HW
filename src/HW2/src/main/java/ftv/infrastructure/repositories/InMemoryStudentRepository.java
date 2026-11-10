@@ -4,22 +4,23 @@ import ftv.domain.models.Student;
 import ftv.domain.models.StudentId;
 import ftv.domain.repositories.IStudentRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class InMemoryStudentRepository implements IStudentRepository {
+    private final Map<StudentId, Student> students = new HashMap<>();
+
     @Override
     public void save(Student student) {
-
+        students.put(student.id(), student);
     }
 
     @Override
     public Optional<Student> findById(StudentId id) {
-        return Optional.empty();
+        return Optional.ofNullable(students.get(id));
     }
 
     @Override
     public List<Student> findAll() {
-        return List.of();
+        return new ArrayList<>(students.values());
     }
 }

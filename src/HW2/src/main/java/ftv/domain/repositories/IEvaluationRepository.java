@@ -13,4 +13,6 @@ public interface IEvaluationRepository {
     Optional<Evaluation> findById(EvaluationId id);
 
     List<Evaluation> findByStudent(StudentId id);
+
+    void delete(EvaluationId id);
 }

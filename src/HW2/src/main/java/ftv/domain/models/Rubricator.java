@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class Rubricator {
     private final Map<CriterionId, Criterion> criteria = new HashMap<>();
 
-    public void addCriterion(CriterionId name, Criterion criterion) {
-        if (criteria.containsKey(name)) throw new IllegalArgumentException("Duplicate criterion name");
-        criteria.put(name, criterion);
+    public void addCriterion(Criterion criterion) {
+        if (criteria.containsKey(criterion.id())) {
+            throw new IllegalArgumentException("Criterion already exists: " + criterion.id());
+        }
+        criteria.put(criterion.id(), criterion);
     }
 
     public Criterion getCriterion(CriterionId name) {
@@ -21,7 +22,7 @@ public class Rubricator {
         return criteria.values().stream().toList();
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return criteria.size();
     }
 }
