@@ -14,7 +14,7 @@ public interface IPosFacade {
 
     List<Criterion> getCriterions();
 
-    Evaluation evaluateStudent(StudentId studentId, CriterionId criterionId, int score);
+    void evaluateStudent(StudentId studentId, CriterionId criterionId, int score);
 
     void correctEvaluation(EvaluationId evaluationId, int newScore);
 

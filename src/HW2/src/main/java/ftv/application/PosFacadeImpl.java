@@ -39,12 +39,9 @@ public class PosFacadeImpl implements IPosFacade {
         this.resultCalculator = resultCalculator;
         this.exporter = exporter;
 
-        for (IResultStrategy strategy : strategies) {
-            if (this.strategies.put(strategy.mode(), strategy) != null) {
+        for (IResultStrategy strategy : strategies)
+            if (this.strategies.put(strategy.mode(), strategy) != null)
                 throw new IllegalArgumentException("Duplicate strategy mode");
-            }
-            ;
-        }
         setCalculationMode(defaultMode);
     }
 
@@ -71,14 +68,13 @@ public class PosFacadeImpl implements IPosFacade {
     }
 
     @Override
-    public Evaluation evaluateStudent(StudentId studentId, CriterionId criterionId, int score) {
+    public void evaluateStudent(StudentId studentId, CriterionId criterionId, int score) {
         studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId.id()));
 
         Rubricator rubricator = rubricatorRepository.load();
         Evaluation evaluation = evaluationFactory.createEvaluation(studentId, criterionId, score, rubricator);
         evaluationRepository.save(evaluation);
-        return evaluation;
     }
 
     @Override
@@ -110,9 +106,8 @@ public class PosFacadeImpl implements IPosFacade {
 
     @Override
     public void setCalculationMode(CalculationMode mode) {
-        if (!strategies.containsKey(mode)) {
+        if (!strategies.containsKey(mode))
             throw new IllegalArgumentException("Calculation mode is not available: " + mode);
-        }
         this.calculationMode = mode;
     }
 

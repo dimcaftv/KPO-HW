@@ -17,12 +17,12 @@ public class EvaluationFactory {
     }
 
     void validate(Criterion criterion, Rubricator rubricator, int score) {
-        if (score < 0 || score > criterion.maxScore()) {
-            throw new IllegalArgumentException("Score is out of range");
+        if (criterion == null || rubricator.getCriterion(criterion.id()) == null) {
+            throw new IllegalArgumentException("Criterion not found in rubricator");
         }
 
-        if (rubricator.getCriterion(criterion.id()) == null) {
-            throw new IllegalArgumentException("Criterion not found in rubricator");
+        if (score < 0 || score > criterion.maxScore()) {
+            throw new IllegalArgumentException("Score is out of range");
         }
     }
 }

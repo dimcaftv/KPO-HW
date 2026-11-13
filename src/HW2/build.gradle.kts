@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter:4.1.1")
+    implementation("com.google.code.gson:gson:2.15.0")
 
     compileOnly("org.projectlombok:lombok:1.18.42")
     annotationProcessor("org.projectlombok:lombok:1.18.42")
