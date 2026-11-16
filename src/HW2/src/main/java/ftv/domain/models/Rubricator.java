@@ -8,9 +8,9 @@ public class Rubricator {
     private final Map<CriterionId, Criterion> criteria = new HashMap<>();
 
     public void addCriterion(Criterion criterion) {
-        if (criteria.containsKey(criterion.id())) {
+        if (criteria.containsKey(criterion.id()))
             throw new IllegalArgumentException("Criterion already exists: " + criterion.id());
-        }
+
         criteria.put(criterion.id(), criterion);
     }
 

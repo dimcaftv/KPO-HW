@@ -53,6 +53,7 @@ public class ConsoleUI {
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
+            System.out.println();
         }
     }
 
@@ -178,24 +179,24 @@ public class ConsoleUI {
         }
     }
 
-    private String ask(String prompt) {
-        System.out.print(prompt);
+    private String ask(String request) {
+        System.out.print(request);
         if (!scanner.hasNextLine())
             throw new IllegalStateException("Input ended");
         return scanner.nextLine().trim();
     }
 
-    private int askInt(String prompt) {
+    private int askInt(String request) {
         try {
-            return Integer.parseInt(ask(prompt));
+            return Integer.parseInt(ask(request));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Expected an integer");
         }
     }
 
-    private double askDouble(String prompt) {
+    private double askDouble(String request) {
         try {
-            return Double.parseDouble(ask(prompt));
+            return Double.parseDouble(ask(request));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Expected a number");
         }
