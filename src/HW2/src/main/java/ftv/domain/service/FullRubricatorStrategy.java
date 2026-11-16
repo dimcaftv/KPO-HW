@@ -17,7 +17,7 @@ public class FullRubricatorStrategy implements IResultStrategy {
         double res = 0;
         for (Evaluation evaluation : evaluations) {
             Criterion criterion = rubricator.getCriterion(evaluation.criterionId());
-            res += evaluation.score() * criterion.weight() / criterion.maxScore();
+            res += criterion.weight() * evaluation.score() / criterion.maxScore();
         }
         return rubricator.getSize() > 0 ? res / rubricator.getSize() : 0;
     }

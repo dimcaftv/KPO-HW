@@ -6,7 +6,6 @@ import ftv.domain.repositories.IEvaluationRepository;
 import ftv.domain.repositories.IRubricatorRepository;
 import ftv.domain.repositories.IStudentRepository;
 import ftv.domain.service.CalculationMode;
-import ftv.domain.service.IExporter;
 import ftv.domain.service.IResultStrategy;
 import ftv.domain.service.ResultCalculator;
 

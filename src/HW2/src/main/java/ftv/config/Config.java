@@ -1,5 +1,6 @@
 package ftv.config;
 
+import ftv.application.IExporter;
 import ftv.application.IPosFacade;
 import ftv.application.PosFacadeImpl;
 import ftv.domain.EvaluationFactory;

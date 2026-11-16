@@ -2,8 +2,8 @@ package ftv.infrastructure.export;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ftv.application.IExporter;
 import ftv.domain.models.Result;
-import ftv.domain.service.IExporter;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

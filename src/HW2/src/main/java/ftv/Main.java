@@ -7,7 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class Main {
-    public static void main() {
+    public static void main(String[] args) {
         try (ConfigurableApplicationContext context = SpringApplication.run(Main.class)) {
             context.getBean(ConsoleUI.class).run();
         }

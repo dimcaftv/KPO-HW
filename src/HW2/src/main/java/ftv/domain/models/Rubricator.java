@@ -25,4 +25,12 @@ public class Rubricator {
     public int getSize() {
         return criteria.size();
     }
+
+    public void validateEvaluation(CriterionId criterionId, int score) {
+        Criterion criterion = criteria.get(criterionId);
+        if (criterion == null)
+            throw new IllegalArgumentException("Criterion not found in rubricator: " + criterionId.name());
+        if (score < 0 || score > criterion.maxScore())
+            throw new IllegalArgumentException("Score out of range: " + score);
+    }
 }

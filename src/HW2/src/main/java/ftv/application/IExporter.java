@@ -1,4 +1,4 @@
-package ftv.domain.service;
+package ftv.application;
 
 import ftv.domain.models.Result;
 
